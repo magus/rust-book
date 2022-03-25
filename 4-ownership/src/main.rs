@@ -63,6 +63,7 @@ fn main() {
     // println!(r#"s = "{}""#, s9);
     let s10 = return_ownership(s9);
     println!(r#"s = "{}""#, s10);
+    println!("s10 after call={}", s10);
 
     let s = String::from("how long am i?");
     println!("calculate_length(&s) = {}", calculate_length(&s));
