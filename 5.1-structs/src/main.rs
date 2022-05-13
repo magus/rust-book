@@ -57,8 +57,8 @@ fn main() {
     let red = Color(255, 0, 0);
     let origin = Point(0, 0, 0);
 
-    struct UnitStruct;
-    let unit = UnitStruct; // `UnitStruct {}` implied
+    // struct UnitStruct;
+    // let unit = UnitStruct; // `UnitStruct {}` implied, unused variable: `unit` `#[warn(unused_variables)]` on by default
 
     println!("red=({},{},{})", red.0, red.1, red.2);
     println!("origin=({},{},{})", origin.0, origin.1, origin.2);
