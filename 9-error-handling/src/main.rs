@@ -15,6 +15,14 @@ use std::io;
 // this will exit with non-zero when error and 0 otherwise (`Ok(())`)
 // for example, in the example below if we give an invalid `filepath` the return code is `101`
 
+// small example of returning with exit code from main
+// fn main() -> Result<(), Box<dyn Error>> {
+//     let filepath = "does-not-exist.txt";
+//     fs::read_to_string(filepath)?;
+
+//     Ok(())
+// }
+
 fn main() -> Result<(), Box<dyn Error>> {
     // panic!("crash and burn");
 
