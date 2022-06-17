@@ -110,12 +110,6 @@ fn largest<T: PartialOrd + Copy>(list: &Vec<T>) -> T {
 fn largest_ref<T: PartialOrd + Copy>(list: &Vec<T>) -> &T {
     let mut largest = &list[0];
 
-    // pattern matching ... again MAGICAL 🧙‍♂️✨
-    // the type of `number` is `&i32`
-    // so the pattern match is
-    //    `&number` === `&i32`
-    // so it figures out that `number` must be `i32`
-
     for item in list {
         if item > largest {
             largest = item;
@@ -128,6 +122,11 @@ fn largest_ref<T: PartialOrd + Copy>(list: &Vec<T>) -> &T {
 fn largest_i32(list: &Vec<i32>) -> i32 {
     let mut largest = list[0];
 
+    // pattern matching ... again MAGICAL 🧙‍♂️✨
+    // the type of `number` is `&i32`
+    // so the pattern match is
+    //    `&item` === `&i32`
+    // so it figures out that `number` must be `i32`
     for &item in list {
         if item > largest {
             largest = item;

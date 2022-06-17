@@ -49,7 +49,7 @@ pub fn notify<T: Summary + Display>(name: &str, item: &T) {
     println!("🚨 {} = {}", name, item);
 }
 
-pub trait Summary {
+pub trait Summary: Display {
     fn summarize_author(&self) -> String {
         return String::from("Anonymous");
     }
@@ -57,20 +57,21 @@ pub trait Summary {
     fn summarize(&self) -> String {
         return format!("Read more from {}...", self.summarize_author());
     }
-}
 
-pub trait Printable {
-    fn print(&self);
-}
-
-// define a new trait on all types that implement both Summary and Display
-// this means any type that implements Summary and Display can call a `print` method
-// e.g. NewsArticle.print(), Tweet.print(), Blog.print()
-impl<T: Summary + Display> Printable for T {
-    fn print(&self) {
-        println!("🖨️ {}", self);
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        return write!(f, "{}", self.summarize());
     }
 }
+
+// // this didn't work 😢
+// impl<T: Summary> Display for T {}
+
+// // this didn't work 😢 but seemed promising
+// impl Display for dyn Summary {
+//     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+//         return write!(f, "{}", self.summarize());
+//     }
+// }
 
 pub struct NewsArticle {
     pub headline: String,
@@ -157,5 +158,18 @@ fn returns_summarizable() -> impl Summary + Display {
         content: String::from("of course, as you probably already know, people"),
         reply: false,
         retweet: false,
+    }
+}
+
+pub trait Printable {
+    fn print(&self);
+}
+
+// define a new trait on all types that implement both Summary and Display
+// this means any type that implements Summary and Display can call a `print` method
+// e.g. NewsArticle.print(), Tweet.print(), Blog.print()
+impl<T: Summary + Display> Printable for T {
+    fn print(&self) {
+        println!("🖨️ {}", self);
     }
 }
